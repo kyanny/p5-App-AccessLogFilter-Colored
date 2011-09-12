@@ -54,7 +54,7 @@ __END__
 
 =head1 NAME
 
-access-log-filter-colored.pl-colored.pl - poor grep(1) for combined/extended log with color
+access-log-filter-colored.pl - poor grep(1) for combined/extended log with color
 
 =head1 SYNOPSIS
 
