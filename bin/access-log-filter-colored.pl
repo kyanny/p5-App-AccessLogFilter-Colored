@@ -89,6 +89,7 @@ example:
     
     @parts = qw(host ident user time method resource proto status bytes microseconds connection referer agent);
     $regexp = qr/^([^ ]*) ([^ ]*) ([^ ]*) \[([^]]*)\] "([^ ]*)(?: *([^ ]*) *([^ ]*))?" ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) "(.*?)" "(.*?)"/;
+    $log_format = q!%s %s %s [%s] "%s %s %s" %s %s %s %s "%s" "%s"!;
     
     1;
 

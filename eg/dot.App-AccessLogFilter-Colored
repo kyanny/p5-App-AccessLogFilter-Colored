@@ -2,6 +2,6 @@
 
 @parts = qw(host ident user time method resource proto status bytes microseconds connection referer agent);
 $regexp = qr/^([^ ]*) ([^ ]*) ([^ ]*) \[([^]]*)\] "([^ ]*)(?: *([^ ]*) *([^ ]*))?" ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) "(.*?)" "(.*?)"/;
-our $log_format = q!%s %s %s [%s] "%s %s %s" %s %s %s %s "%s" "%s"!;
+$log_format = q!%s %s %s [%s] "%s %s %s" %s %s %s %s "%s" "%s"!;
 
 1;
