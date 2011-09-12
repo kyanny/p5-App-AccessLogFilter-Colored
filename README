@@ -23,6 +23,7 @@ SYNOPSIS
          | access-log-filter-colored.pl '$line{agent} =~ /flash/i' -c magenta
 
 SEE ALSO
+     L<Term::ANSIColor> for more details about color name
      L<http://pmakino.jp/tdiary/20070907.html> (thanks for regexp)
 
 AUTHOR

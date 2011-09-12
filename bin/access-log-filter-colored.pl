@@ -64,6 +64,7 @@ examples:
 
 =head1 SEE ALSO
 
+ L<Term::ANSIColor> for more details about color name
  L<http://pmakino.jp/tdiary/20070907.html> (thanks for regexp)
 
 =head1 AUTHOR
