@@ -55,24 +55,39 @@ access-log-filter-colored.pl-colored.pl - poor grep(1) for combined/extended log
 
 =head1 SYNOPSIS
 
- $ access-log-filter-colored.pl 'filter expression' < /var/log/httpd/access_log
-
- options:
-  -c, --color      specify highlight color 
-  -h, -?, --help   print help message
-  -v, --version    print version string
+    $ access-log-filter-colored.pl 'filter expression' < /var/log/httpd/access_log
+   
+    options:
+     -c, --color      specify highlight color 
+     --conf           specify config file for log format customize (see CUSTOMIZE section)
+     -h, -?, --help   print help message
+     -v, --version    print version string
 
 examples:
 
- $ access-log-filter-colored.pl '$line{status} == 500' < /var/log/httpd/access_log
+    $ access-log-filter-colored.pl '$line{status} == 500' < /var/log/httpd/access_log
+   
+    $ access-log-filter-colored.pl '$line{method} eq "POST"' < /var/log/httpd/access_log
+   
+    $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log --color=red
+   
+    $ tailf /var/log/httpd/access_log \
+        | access-log-filter-colored.pl '$line{method} eq "POST"' -c yellow \
+        | access-log-filter-colored.pl '$line{agent} =~ /flash/i' -c magenta
 
- $ access-log-filter-colored.pl '$line{method} eq "POST"' < /var/log/httpd/access_log
+=head1 CUSTOMIZE
 
- $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log --color=red
+You can customize log format. When --conf option passed, $HOME/.App-AccessLogFilter-Colored will load.
+When --conf=/path/to/file option passed, the file /path/to/file will load. Config file is Perl script.
 
- $ tailf /var/log/httpd/access_log \
-     | access-log-filter-colored.pl '$line{method} eq "POST"' -c yellow \
-     | access-log-filter-colored.pl '$line{agent} =~ /flash/i' -c magenta
+example:
+
+    # LogFormat  "%h %l %u %t \"%r\" %>s %b %D %X \"%{Referer}i\" \"%{User-Agent}i\""
+    
+    @parts = qw(host ident user time method resource proto status bytes microseconds connection referer agent);
+    $regexp = qr/^([^ ]*) ([^ ]*) ([^ ]*) \[([^]]*)\] "([^ ]*)(?: *([^ ]*) *([^ ]*))?" ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) "(.*?)" "(.*?)"/;
+    
+    1;
 
 =head1 SEE ALSO
 
