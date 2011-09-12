@@ -6,6 +6,8 @@ use Getopt::Long qw(HelpMessage VersionMessage);
 use Term::ANSIColor qw(colored);
 use File::Spec::Functions;
 
+$| = 1;
+
 our $VERSION = '0.01';
 $VERSION = eval $VERSION;
 
