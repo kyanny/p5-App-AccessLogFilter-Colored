@@ -6,6 +6,7 @@ SYNOPSIS
      $ access-log-filter-colored.pl 'filter expression' < /var/log/httpd/access_log
 
      options:
+      -c, --color      specify highlight color 
       -h, -?, --help   print help message
       -v, --version    print version string
 
@@ -15,11 +16,11 @@ SYNOPSIS
 
      $ access-log-filter-colored.pl '$line{method} eq "POST"' < /var/log/httpd/access_log
 
-     $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log
+     $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log --color=red
 
      $ tailf /var/log/httpd/access_log \
-         | access-log-filter-colored.pl '$line{method} eq "POST"' \
-         | access-log-filter-colored.pl '$line{agent} =~ /flash/i'
+         | access-log-filter-colored.pl '$line{method} eq "POST"' -c yellow \
+         | access-log-filter-colored.pl '$line{agent} =~ /flash/i' -c magenta
 
 SEE ALSO
      L<http://pmakino.jp/tdiary/20070907.html> (thanks for regexp)
