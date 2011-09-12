@@ -4,6 +4,7 @@ use warnings;
 
 use Getopt::Long qw(HelpMessage VersionMessage);
 use Term::ANSIColor qw(colored);
+use File::Spec::Functions;
 
 our $VERSION = '0.01';
 $VERSION = eval $VERSION;
@@ -11,6 +12,8 @@ $VERSION = eval $VERSION;
 Getopt::Long::Configure('bundling', 'no_ignore_case', 'auto_help', 'auto_version');
 GetOptions(
     'c|color=s' => \my $color,
+    'conf:s' => \my $conf,
+    'verbose' => \my $verbose,
     'h' => \&HelpMessage,
     'v' => \&VersionMessage,
 );
@@ -18,11 +21,20 @@ $color ||= 'cyan';
 
 my $filter = shift || '';
 
-my @parts = qw(host ident user time method resource proto status bytes referer agent);
+our @parts = qw(host ident user time method resource proto status bytes referer agent);
+our $regexp = qr/^([^ ]*) ([^ ]*) ([^ ]*) \[([^]]*)\] "([^ ]*)(?: *([^ ]*) *([^ ]*))?" ([^ ]*) ([^ ]*) "(.*?)" "(.*?)"/;
+
+if (defined($conf)) {
+    $conf ||= catfile($ENV{HOME}, '.App-AccessLogFilter-Colored');
+    if (-f $conf) {
+        print STDERR "[info] load $conf\n" if $verbose;
+        require "$conf";
+    }
+}
 
 while (<>) {
     my %line;
-    @line{@parts} = /^([^ ]*) ([^ ]*) ([^ ]*) \[([^]]*)\] "([^ ]*)(?: *([^ ]*) *([^ ]*))?" ([^ ]*) ([^ ]*) "(.*?)" "(.*?)"/;
+    @line{@parts} = /$regexp/;
 
     if (eval($filter)) {
         for my $part (@parts) {
