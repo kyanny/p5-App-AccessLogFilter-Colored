@@ -10,10 +10,11 @@ $VERSION = eval $VERSION;
 
 Getopt::Long::Configure('bundling', 'no_ignore_case', 'auto_help', 'auto_version');
 GetOptions(
-    \my %opts,
+    'c|color=s' => \my $color,
     'h' => \&HelpMessage,
     'v' => \&VersionMessage,
 );
+$color ||= 'cyan';
 
 my $filter = shift || '';
 
@@ -26,7 +27,7 @@ while (<>) {
     if (eval($filter)) {
         for my $part (@parts) {
             if ($filter =~ /$part/) {
-                $line{$part} = colored($line{$part}, 'cyan');
+                $line{$part} = colored($line{$part}, $color);
             }
         }
         my $new_line = sprintf(q!%s %s %s [%s] "%s %s %s" %s %s "%s" "%s"!, @line{@parts});
@@ -45,6 +46,7 @@ access-log-filter-colored.pl-colored.pl - poor grep(1) for combined/extended log
  $ access-log-filter-colored.pl 'filter expression' < /var/log/httpd/access_log
 
  options:
+  -c, --color      specify highlight color 
   -h, -?, --help   print help message
   -v, --version    print version string
 
@@ -54,11 +56,11 @@ examples:
 
  $ access-log-filter-colored.pl '$line{method} eq "POST"' < /var/log/httpd/access_log
 
- $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log
+ $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log --color=red
 
  $ tailf /var/log/httpd/access_log \
-     | access-log-filter-colored.pl '$line{method} eq "POST"' \
-     | access-log-filter-colored.pl '$line{agent} =~ /flash/i'
+     | access-log-filter-colored.pl '$line{method} eq "POST"' -c yellow \
+     | access-log-filter-colored.pl '$line{agent} =~ /flash/i' -c magenta
 
 =head1 SEE ALSO
 
