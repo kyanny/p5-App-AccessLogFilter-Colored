@@ -1,0 +1,6 @@
+# LogFormat  "%h %l %u %t \"%r\" %>s %b %D %X \"%{Referer}i\" \"%{User-Agent}i\""
+
+@parts = qw(host ident user time method resource proto status bytes microseconds connection referer agent);
+$regexp = qr/^([^ ]*) ([^ ]*) ([^ ]*) \[([^]]*)\] "([^ ]*)(?: *([^ ]*) *([^ ]*))?" ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) "(.*?)" "(.*?)"/;
+
+1;
