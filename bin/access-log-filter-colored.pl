@@ -69,13 +69,13 @@ examples:
 
     $ access-log-filter-colored.pl '$line{status} == 500' < /var/log/httpd/access_log
    
-    $ access-log-filter-colored.pl '$line{method} eq "POST"' < /var/log/httpd/access_log
+    $ access-log-filter-colored.pl --color=red '$line{method} eq "POST"' < /var/log/httpd/access_log
    
-    $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log --color=red
+    $ access-log-filter-colored.pl --conf -- '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log
    
     $ tailf /var/log/httpd/access_log \
-        | access-log-filter-colored.pl '$line{method} eq "POST"' -c yellow \
-        | access-log-filter-colored.pl '$line{agent} =~ /flash/i' -c magenta
+        | access-log-filter-colored.pl '$line{method} eq "POST"' -c yellow --conf\
+        | access-log-filter-colored.pl '$line{agent} =~ /flash/i' -c magenta --conf
 
 =head1 CUSTOMIZE
 
