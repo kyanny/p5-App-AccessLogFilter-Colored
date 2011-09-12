@@ -1,8 +1,8 @@
 use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME => 'App::AccessLogFilter::Colored',
-    VERSION_FROM => "bin/access-log-filter-colored.pl",
-    ABSTRACT => 'grep for combined/extended log with color.',
+    VERSION_FROM => "lib/App/AccessLogFilter/Colored.pm",
+    ABSTRACT => 'poor grep(1) for combined/extended log with color',
     PREREQ_PM => {
         'Term::ANSIColor' => 0,
     },
