@@ -1,0 +1,32 @@
+NAME
+    access-log-filter - grep for combined/extended log with color
+
+SYNOPSIS
+     $ access-log-filter 'filter expression' < /var/log/httpd/access_log
+
+     options:
+      -h, -?, --help   print help message
+      -v, --version    print version string
+
+    examples:
+
+     $ access-log-filter '$line{status} == 500' < /var/log/httpd/access_log
+
+     $ access-log-filter '$line{method} eq "POST"' < /var/log/httpd/access_log
+
+     $ access-log-filter '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log
+
+     $ tailf /var/log/httpd/access_log \
+         | access-log-filter '$line{method} eq "POST"' \
+         | access-log-filter '$line{agent} =~ /flash/i'
+
+SEE ALSO
+     L<http://pmakino.jp/tdiary/20070907.html> (thanks for regexp)
+
+AUTHOR
+    Kensuke Nagae <kyanny at gmail dot com>
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
