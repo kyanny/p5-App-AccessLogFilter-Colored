@@ -38,11 +38,11 @@ __END__
 
 =head1 NAME
 
-access-log-filter - grep for combined/extended log with color
+access-log-filter-colored.pl-colored.pl - grep for combined/extended log with color
 
 =head1 SYNOPSIS
 
- $ access-log-filter 'filter expression' < /var/log/httpd/access_log
+ $ access-log-filter-colored.pl 'filter expression' < /var/log/httpd/access_log
 
  options:
   -h, -?, --help   print help message
@@ -50,15 +50,15 @@ access-log-filter - grep for combined/extended log with color
 
 examples:
 
- $ access-log-filter '$line{status} == 500' < /var/log/httpd/access_log
+ $ access-log-filter-colored.pl '$line{status} == 500' < /var/log/httpd/access_log
 
- $ access-log-filter '$line{method} eq "POST"' < /var/log/httpd/access_log
+ $ access-log-filter-colored.pl '$line{method} eq "POST"' < /var/log/httpd/access_log
 
- $ access-log-filter '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log
+ $ access-log-filter-colored.pl '$line{agent} =~ /iphone/i' < /var/log/httpd/access_log
 
  $ tailf /var/log/httpd/access_log \
-     | access-log-filter '$line{method} eq "POST"' \
-     | access-log-filter '$line{agent} =~ /flash/i'
+     | access-log-filter-colored.pl '$line{method} eq "POST"' \
+     | access-log-filter-colored.pl '$line{agent} =~ /flash/i'
 
 =head1 SEE ALSO
 
