@@ -25,6 +25,7 @@ my $filter = shift || '';
 
 our @parts = qw(host ident user time method resource proto status bytes referer agent);
 our $regexp = qr/^([^ ]*) ([^ ]*) ([^ ]*) \[([^]]*)\] "([^ ]*)(?: *([^ ]*) *([^ ]*))?" ([^ ]*) ([^ ]*) "(.*?)" "(.*?)"/;
+our $log_format = q!%s %s %s [%s] "%s %s %s" %s %s "%s" "%s"!;
 
 if (defined($conf)) {
     $conf ||= catfile($ENV{HOME}, '.App-AccessLogFilter-Colored');
@@ -44,7 +45,7 @@ while (<>) {
                 $line{$part} = colored($line{$part}, $color);
             }
         }
-        my $new_line = sprintf(q!%s %s %s [%s] "%s %s %s" %s %s "%s" "%s"!, @line{@parts});
+        my $new_line = sprintf($log_format, @line{@parts});
         print $new_line, "\n";
     }
 }
